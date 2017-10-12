@@ -147,6 +147,8 @@ STATION_DESC_MOT	sMOT[MAX_RTU];
 TOTAL_PAR			sT;
 int					nTotalRTU;
 BYTE			nMoscadHours;
+
+long			lTick=0;
 /*--------------------------------------------------------------------------*/
 /* The list of the function included in this block                          */
 /*--------------------------------------------------------------------------*/
@@ -239,8 +241,13 @@ void rx(void)
    unsigned char  nTxBuf[CB_MAX_MDLC_BUF_SIZE];
    
 
-
-
+	lTick++;
+	if (lTick > 100)
+	{
+		lTick = 0;
+		p_col_DP_A[69]= p_col_DP_A[69]+1;
+	}
+	
    
    
    buff_len=sizeof(rx_buffer);
@@ -328,10 +335,16 @@ void fnReadPar(void)
 {
 char 				message[300];
 
+/*!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!*/
+/*  Reteszes RTU-k paraméterei 																	*/
+/*!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!*/
 nReteszNum = 1;         /* Reteszes TMOK-k száma */
+
 
 dpPars[0].nSite   = 3;       /* G front end */
 dpPars[0].nDP_ID  = 1250;    /* DP6, 0. */
+
+/*!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!*/
 
 
 
@@ -432,7 +445,7 @@ for (nI=0;nI<nReteszNum && nI<80 ;nI++)
 {
   if(p_col_DP_B[nI] != nDPOld[nI])
   {
-     		  nTxBuf[0] = 100; /* Ugyanaz, mintha TMOK lenne */				
+     		nTxBuf[0] = 100; /* Ugyanaz, mintha TMOK lenne */				
    		   	nTxBuf[1] = p_col_DP_B[nI]; /* << 14;     DP értéke  Nem szabad forgatni!*/    	
    		   	nTxBuf[2] = dpPars[nI].nDP_ID; /* DP azonosítója */ 
               	
