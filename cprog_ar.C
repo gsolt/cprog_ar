@@ -7,7 +7,11 @@
 *                                                                             	*
 * REV    DATE     PROGRAMMER         REVISION HISTORY                         	*
 * V1.1	2015.09.25 Gergely Zsolt	*p_col_RxBuf: unsigned short
-
+              0: 71-28
+              1: 32-24
+              2: 30-43
+              3: 42-12
+ 
 *****************************************************************************/
 
 #include "CAPPLIC.H"
@@ -177,7 +181,7 @@ int 			nOffset;
       {
          case CB_INIT :
          
-        MOSCAD_sprintf(message,"A redndancia program version 1.0");
+        MOSCAD_sprintf(message,"A redndancia program version 1.01");
         MOSCAD_error(message );
 
          	
@@ -338,7 +342,7 @@ char 				message[300];
 /*!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!*/
 /*  Reteszes RTU-k paraméterei 																	*/
 /*!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!*/
-nReteszNum = 3;         /* Reteszes TMOK-k száma */
+nReteszNum = 4;         /* Reteszes TMOK-k száma */
 
 
 dpPars[0].nSite   = 3;       /* G front end */
@@ -349,6 +353,10 @@ dpPars[1].nDP_ID  = 1254;    /* DP6, 0. */
 
 dpPars[2].nSite   = 2;       /* E front end */
 dpPars[2].nDP_ID  = 1253;    /* DP6, 0. */
+
+dpPars[3].nSite   = 3;       /* B: 42-12-> G front end */
+dpPars[3].nDP_ID  = 1271;    /* DP6, 0. */
+
 /*!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!*/
 
 
@@ -424,7 +432,7 @@ if (nDPStart<70 && nDPStart>=0)
   p_col_DP_A[nDPStart]= nData;	
 	
 
-	MOSCAD_sprintf(message,"Front end data: nDPStart: %d nData: %d nData: %d, nVal: %d",nDPStart,nData);
+	MOSCAD_sprintf(message,"Front end data: nDPStart: %d nData: %d",nDPStart,nData);
         MOSCAD_error(message );
 					
 
