@@ -182,7 +182,7 @@ int 			nOffset;
       {
          case CB_INIT :
          
-        MOSCAD_sprintf(message,"A redndancia program version 1.01");
+        MOSCAD_sprintf(message,"A redndancia program version 1.04");
         MOSCAD_error(message );
 
          	
